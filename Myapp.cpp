@@ -14,7 +14,7 @@ Status isNumString(char* str)
 
 int main(int argc, char *argv[])
 {
-    int questionCount = 0, numRange = 0;  //Ä¬ÈÏMyapp.exe -n ÌâÄ¿Êı -r ·¶Î§Öµ£¬³ö´í´¦ÀíºóÃæÔÙ´¦Àí
+    int questionCount = 0, numRange = 0;  //é»˜è®¤Myapp.exe -n é¢˜ç›®æ•° -r èŒƒå›´å€¼ï¼Œå‡ºé”™å¤„ç†åé¢å†å¤„ç†
 
     int opt;
     while((opt=getopt(argc,argv,"n:r:"))!=-1)
@@ -30,8 +30,8 @@ int main(int argc, char *argv[])
     }
     if( questionCount == 0 || numRange == 0 )
     {
-        printf("ÃüÁîĞĞ²ÎÊıÊäÈë´íÎó...\n");
-        printf("ÊäÈë¸ñÊ½ÎªMyapp.exe -n ÌâÄ¿Êı(ÕûÊı) -r ·¶Î§Öµ(ÕûÊı)\n");
+        printf("å‘½ä»¤è¡Œå‚æ•°è¾“å…¥é”™è¯¯...\n");
+        printf("è¾“å…¥æ ¼å¼ä¸ºMyapp.exe -n é¢˜ç›®æ•°(æ•´æ•°) -r èŒƒå›´å€¼(æ•´æ•°)\n");
         exit(1);
     }
     srand((int)time(0));
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     answerFile = fopen("answer.txt", "w");
     if(!questionFile || !answerFile)
     {
-        printf("ÎÄ¼ş´ò¿ªÊ§°Ü...°´ÈÎÒâ¼üÍË³ö\n");    getchar();
+        printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥...æŒ‰ä»»æ„é”®é€€å‡º\n");    getchar();
         exit(1);
     }
 
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     ExpArr = (ExpInfoPtr)malloc( (questionCount+1) * sizeof(ExpInfo));
     if(!ExpArr)
     {
-        printf("¿Õ¼äÉêÇëÊ§°Ü...°´ÈÎÒâ¼üÍË³ö\n");    getchar();
+        printf("ç©ºé—´ç”³è¯·å¤±è´¥...æŒ‰ä»»æ„é”®é€€å‡º\n");    getchar();
         exit(1);
     }
 
@@ -60,8 +60,8 @@ int main(int argc, char *argv[])
 
     while(ExpIndex <= questionCount)
     {
-        //1¡¢ÏÈÉú³ÉÔËËã·ûÊıÁ¿£¬ÔÙËæ»úÑ¡ÔñÔËËã·û
-        int symCount = rand()%3 +1;   //Ò»Ìõ±í´ïÊ½×î¶àÑ¡Ôñ3¸öÔËËã·û
+        //1ã€å…ˆç”Ÿæˆè¿ç®—ç¬¦æ•°é‡ï¼Œå†éšæœºé€‰æ‹©è¿ç®—ç¬¦
+        int symCount = rand()%3 +1;   //ä¸€æ¡è¡¨è¾¾å¼æœ€å¤šé€‰æ‹©3ä¸ªè¿ç®—ç¬¦
         char* symArr = chooseSym(symCount);
         if(!symArr)
         {
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
             break;
         }
 
-        //2¡¢ÔËËã·û´î³ÉÊ÷
+        //2ã€è¿ç®—ç¬¦æ­æˆæ ‘
         BiTree symTree = createSymTree(symCount, symArr);
         if(!symTree)
         {
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
             break;
         }
 
-        //3¡¢ÔÚÔËËã·ûÊ÷µÄÒ¶×Ó½áµã¼Ó²Ù×÷Êı
+        //3ã€åœ¨è¿ç®—ç¬¦æ ‘çš„å¶å­ç»“ç‚¹åŠ æ“ä½œæ•°
         int addFlag = TRUE;
         addOpNumInSymTree(numRange, symTree, addFlag);
         if(addFlag == FALSE)
@@ -86,14 +86,14 @@ int main(int argc, char *argv[])
             break;
         }
 
-        //4¡¢ÅĞ¶ÏÉú³ÉµÄ±í´ïÊ½ÊÇ·ñºÏ·¨£¬Ö÷Òª¼ì²â³ıÊıÊÇ·ñÎª0£¬²¢½øĞĞÎÄ¼ş¶ÁĞ´
+        //4ã€åˆ¤æ–­ç”Ÿæˆçš„è¡¨è¾¾å¼æ˜¯å¦åˆæ³•ï¼Œä¸»è¦æ£€æµ‹é™¤æ•°æ˜¯å¦ä¸º0ï¼Œå¹¶è¿›è¡Œæ–‡ä»¶è¯»å†™
         BiTree ExpTree = symTree;
         NumInfo result;
 
         if( isLegalExp(ExpTree, result) )
         {
-            //5¡¢±í´ïÊ½ºÏ·¨Ôò¼ì²éÖØ¸´ĞÔ
-            //5.1   ÏÈ»ñÈ¡µ±Ç°±í´ïÊ½µÄ»ù±¾ĞÅÏ¢
+            //5ã€è¡¨è¾¾å¼åˆæ³•åˆ™æ£€æŸ¥é‡å¤æ€§
+            //5.1   å…ˆè·å–å½“å‰è¡¨è¾¾å¼çš„åŸºæœ¬ä¿¡æ¯
             ExpInfo tempExpInfo;
             tempExpInfo.ExpTree = ExpTree;
             tempExpInfo.symCount = symCount;
@@ -114,18 +114,18 @@ int main(int argc, char *argv[])
             tempExpInfo.result = result;
 
 
-            if(ExpIndex == 1)    //µÚ¶şÌõÌâÄ¿¿ªÊ¼ĞèÒª¼ì²âÖØ¸´ĞÔ
+            if(ExpIndex == 1)    //ç¬¬äºŒæ¡é¢˜ç›®å¼€å§‹éœ€è¦æ£€æµ‹é‡å¤æ€§
                 addInExpArr(ExpArr, tempExpInfo, ExpIndex);
             else{
 
                 if( !isRepetitive(ExpArr, tempExpInfo, ExpIndex) )
                 {
-                    //5.2.1 ºÏ·¨µÄ»°£¬Ôò¼ÓÈëµ½±í´ïÊ½Êı×éÖĞ
+                    //5.2.1 åˆæ³•çš„è¯ï¼Œåˆ™åŠ å…¥åˆ°è¡¨è¾¾å¼æ•°ç»„ä¸­
                     addInExpArr(ExpArr, tempExpInfo, ExpIndex);
                     repetiveTime = 0;
                 }
                 else {
-                        //5.2.2 ²»ºÏ·¨µÄ»°£¬Éú³ÉÖØ¸´´ÎÊı¸üĞÂ£¬ÊÍ·Å¿Õ¼ä
+                        //5.2.2 ä¸åˆæ³•çš„è¯ï¼Œç”Ÿæˆé‡å¤æ¬¡æ•°æ›´æ–°ï¼Œé‡Šæ”¾ç©ºé—´
                         repetiveTime++;
                         if(repetiveTime >= ExpIndex)
                             break;
@@ -134,40 +134,40 @@ int main(int argc, char *argv[])
                 }
             }
 
-            //6¡¢ÔÚ¿ØÖÆÌ¨¡¢ÌâÄ¿ÎÄ¼ş¡¢´ğ°¸ÎÄ¼ş´òÓ¡ÌâÄ¿ĞòºÅ
+            //6ã€åœ¨æ§åˆ¶å°ã€é¢˜ç›®æ–‡ä»¶ã€ç­”æ¡ˆæ–‡ä»¶æ‰“å°é¢˜ç›®åºå·
             printf("%d.\t", ExpIndex);
             fprintf(questionFile,"%d.\t", ExpIndex);
             fprintf(answerFile, "%d.\t", ExpIndex);
 
-            //6.1 ±í´ïÊ½Ğ´ÈëÌâÄ¿ÎÄ¼ş
+            //6.1 è¡¨è¾¾å¼å†™å…¥é¢˜ç›®æ–‡ä»¶
             writeExp(ExpTree, questionFile);
             printf("= ");
             fprintf(questionFile, "= \n");
 
-            //6.2 Ğ´Èë´ğ°¸ÎÄ¼ş
+            //6.2 å†™å…¥ç­”æ¡ˆæ–‡ä»¶
             writeAnswer(result, answerFile);
 
-            //6.3 ¿ØÖÆÌ¨Õ¹Ê¾ÔËËã¹ı³Ì
+            //6.3 æ§åˆ¶å°å±•ç¤ºè¿ç®—è¿‡ç¨‹
             //int flag = TRUE;
             //getValue(ExpTree, flag, 1);
             //printf("\n");
 
-            //7¡¢ ¸üĞÂÌâºÅ
+            //7ã€ æ›´æ–°é¢˜å·
             ExpIndex++;
         }
     }
 
-    //8¡¢ Éú³ÉÍê±Ï£¬¹Ø±ÕÎÄ¼ş£¬ÊÍ·Å±í´ïÊ½Êı×é¿Õ¼ä
+    //8ã€ ç”Ÿæˆå®Œæ¯•ï¼Œå…³é—­æ–‡ä»¶ï¼Œé‡Šæ”¾è¡¨è¾¾å¼æ•°ç»„ç©ºé—´
     fclose(questionFile);
     fclose(answerFile);
     free(ExpArr);
 
     if(runtimeFlag == FALSE)
     {
-        printf("¿Õ¼äÉêÇëÊ§°Ü...°´ÈÎÒâ¼üÍË³ö\n");    getchar();
+        printf("ç©ºé—´ç”³è¯·å¤±è´¥...æŒ‰ä»»æ„é”®é€€å‡º\n");    getchar();
         exit(1);
     }
-    printf("\nµ±Ç°ÒÑÉú³É %d µÀ£¬²Ù×÷Êı·¶Î§Îª %d µÄËÄÔòÔËËãÌâÄ¿.\n", ExpIndex, numRange);
-    printf("ÌâÄ¿±£´æÔÚµ±Ç°Ä¿Â¼ÏÂµÄquestion.txtÎÄ¼şÖĞ\n´ğ°¸±£´æÔÚµ±Ç°Ä¿Â¼ÏÂµÄanswer.txtÎÄ¼şÖĞ\n");
+    printf("\nå½“å‰å·²ç”Ÿæˆ %d é“ï¼Œæ“ä½œæ•°èŒƒå›´ä¸º %d çš„å››åˆ™è¿ç®—é¢˜ç›®.\n", ExpIndex -1, numRange);
+    printf("é¢˜ç›®ä¿å­˜åœ¨å½“å‰ç›®å½•ä¸‹çš„question.txtæ–‡ä»¶ä¸­\nç­”æ¡ˆä¿å­˜åœ¨å½“å‰ç›®å½•ä¸‹çš„answer.txtæ–‡ä»¶ä¸­\n");
     return 0;
 }
